@@ -51,13 +51,7 @@ class CountGenderStrategy < StudentStrategy
   end
 
   def execute(array)
-    count = 0
-    array.each do |student|
-      if student.gender == @gender
-        count += 1
-      end
-    end
-    count
+    array.count {|student| student.gender == @gender}
   end
 
 end
