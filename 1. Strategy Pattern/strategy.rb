@@ -42,3 +42,24 @@ class Course
   end
 
 end
+
+
+class CountGenderStrategy < StudentStrategy
+
+  def initialize(gender)
+    @gender = gender
+  end
+
+  def execute(array)
+    index = 0
+    count = 0
+    while index < array.size
+      if array[index].gender == @gender
+        count += 1
+      end
+      index += 1
+    end
+    count
+  end
+
+end
