@@ -55,3 +55,23 @@ class CountGenderStrategy < StudentStrategy
   end
 
 end
+
+
+class ComputeAverageGPAStrategy < StudentStrategy
+
+  def execute(array)
+    return nil if array.size == 0
+    (array.sum {|student| student.gpa}) / array.size.to_f
+  end
+
+end
+
+
+class BestGPAStrategy < StudentStrategy
+
+  def execute(array)
+    return nil if array.size == 0
+    (array.max {|a, b| a.gpa <=> b.gpa}).name
+  end
+
+end
