@@ -51,13 +51,11 @@ class CountGenderStrategy < StudentStrategy
   end
 
   def execute(array)
-    index = 0
     count = 0
-    while index < array.size
-      if array[index].gender == @gender
+    array.each do |student|
+      if student.gender == @gender
         count += 1
       end
-      index += 1
     end
     count
   end
