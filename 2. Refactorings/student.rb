@@ -22,6 +22,17 @@ class Student
     display_disclaimer
   end
 
+  def scholarship_worthy?
+    # Nothing reasonable to do if this student has currently no grades.
+    return -1 if @grades.empty?
+
+    # A student is worthy of a scholarship if he/she has good grades and
+    # is poor.
+    (average >= MIN_AVERAGE_GRADE) and (@anual_income < MAX_POOR_LIMIT)
+  end
+
+  private
+
   def display_personal_information
     puts "Name: #{ @name } ID: #{ @id }"
     puts "Anual income: #{ @anual_income }"
@@ -40,15 +51,6 @@ class Student
       sum += grade
     end
     sum / @grades.size.to_f
-  end
-
-  def scholarship_worthy?
-    # Nothing reasonable to do if this student has currently no grades.
-    return -1 if @grades.empty?
-
-    # A student is worthy of a scholarship if he/she has good grades and
-    # is poor.
-    (average >= MIN_AVERAGE_GRADE) and (@anual_income < MAX_POOR_LIMIT)
   end
 
 end
