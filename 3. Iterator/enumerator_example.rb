@@ -23,6 +23,20 @@ class TreeTraversal
     end
   end
 
+  def breadth_first(root)
+    Enumerator.new do |yielder|
+      queue = [root]
+      while !queue.empty?
+        element = queue.shift
+        if !element.nil?
+          yielder << element[0]
+          queue.push(element[1])
+          queue.push(element[2])
+        end
+      end
+    end
+  end
+
   private
 
   def recursive_preorder(root)
@@ -47,4 +61,8 @@ tree =  ['A',
 
 tt = TreeTraversal.new
 enum = tt.preorder(tree)
+enum.each {|x| puts x}
+p enum.to_a
+enum = tt.breadth_first(tree)
+enum.each {|x| puts x}
 p enum.to_a
