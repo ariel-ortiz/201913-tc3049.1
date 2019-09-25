@@ -24,13 +24,45 @@ class ArrayIterator
 end
 
 #--------------------------------------------------------------------
+# Adapts an Enumerator object soso that it behaves like an
+# ArrayIterator.
+class EnumeratorToArrayIteratorAdapter
+
+  def initialize(enumerator)
+    @enumerator = enumerator
+  end
+
+  def has_next?
+    begin
+      @enumerator.peek
+      true
+    rescue StopIteration
+      false
+    end
+  end
+
+  def item
+    @enumerator.peek
+  end
+
+  def next_item
+    if has_next?
+      @enumerator.next
+    else
+      nil
+    end
+  end
+
+end
+
+#--------------------------------------------------------------------
 # Using external iterators to implement merge sort.
 # Taken from [OLSEN] p. 132.
 def merge(array1, array2)
   merged = []
 
-  iterator1 = ArrayIterator.new(array1)
-  iterator2 = ArrayIterator.new(array2)
+  iterator1 = EnumeratorToArrayIteratorAdapter.new(array1.to_enum)
+  iterator2 = EnumeratorToArrayIteratorAdapter.new(array2.to_enum)
 
   while (iterator1.has_next? and iterator2.has_next?)
     if iterator1.item < iterator2.item
@@ -52,3 +84,8 @@ def merge(array1, array2)
 
   merged
 end
+
+a1 = [4, 5, 5, 6, 7, 8, 10, 20]
+a2 = [1, 2, 3, 4, 5, 6, 8]
+a3 = merge(a1, a2)
+p a3
