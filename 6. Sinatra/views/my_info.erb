@@ -1,0 +1,22 @@
+<!DOCYPE html>
+<html>
+  <head>
+    <title>Book Info</title>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <img src="bibliografia.png" />
+    <h1>Book Info</h1>
+    <ul>
+      <% @books.each do |book| %>
+      <li>
+        <%= book['Author'] %>, <em><%= book['Title'] %></em> (<%= book['Year'] %>).
+        <% if book['Note'] %>
+          <br />
+          <strong><%= book['Note'] %></strong>
+        <% end %>
+      </li>
+      <% end %>
+    </ul>
+  </body>
+</html>
