@@ -49,7 +49,7 @@ def parse_body(body)
       else
         nil
       end
-    rescue JSON::ParseError
+    rescue JSON::ParserError
       nil
     end
   else
